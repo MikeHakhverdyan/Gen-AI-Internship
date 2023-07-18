@@ -1,10 +1,10 @@
 from typing import Literal
+from abc import ABC, abstractmethod
 
 
 # from main import deleter
 
-class Resource:
-
+class Resource(ABC):
     '''
     Main Class from which the other Classes going to Inherit
     '''
@@ -35,6 +35,9 @@ class Resource:
     def state(self):
         return self._state
 
+    @abstractmethod
+    def __str__(self):
+        pass
 
     '''
     Functions for Moving a Device from One place to Another
@@ -55,7 +58,6 @@ class Resource:
             except KeyError:
                 self.assocation_to_trackers[self._state][self._item_type][self._manufacturer][self._model] = 1
             print('The Device is Succesfully Allocated!')
-
 
     def to_inventory(self):
         if self._state == 'Inventory':
@@ -85,9 +87,6 @@ class Resource:
             except KeyError:
                 self.assocation_to_trackers[self._state][self._item_type][self._manufacturer][self._model] = 1
             print('The Device is Retired and Have no Access Anymore(((')
-            self.deleter()
-
-
 
     '''
     Trackers
@@ -95,26 +94,26 @@ class Resource:
 
     total_tracker = {
         'CPU': {'Intel': {}, 'AMD': {}},
-        'HDD': {},
-        'SSD': {}
+        'HDD': {'Seagate': {}, 'Kingston': {}, 'Samsung': {}},
+        'SSD': {'Seagate': {}, 'Kingston': {}, 'Samsung': {}}
     }
 
     inventory_tracker = {
         'CPU': {'Intel': {}, 'AMD': {}},
-        'HDD': {},
-        'SSD': {}
+        'HDD': {'Seagate': {}, 'Kingston': {}, 'Samsung': {}},
+        'SSD': {'Seagate': {}, 'Kingston': {}, 'Samsung': {}}
     }
 
     allocated_tracker = {
         'CPU': {'Intel': {}, 'AMD': {}},
-        'HDD': {},
-        'SSD': {}
+        'HDD': {'Seagate': {}, 'Kingston': {}, 'Samsung': {}},
+        'SSD': {'Seagate': {}, 'Kingston': {}, 'Samsung': {}}
     }
 
     retired_tracker = {
         'CPU': {'Intel': {}, 'AMD': {}},
-        'HDD': {},
-        'SSD': {}
+        'HDD': {'Seagate': {}, 'Kingston': {}, 'Samsung': {}},
+        'SSD': {'Seagate': {}, 'Kingston': {}, 'Samsung': {}}
     }
 
     assocation_to_trackers = {

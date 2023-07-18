@@ -33,20 +33,18 @@ class CPU(Resource):
         except KeyError:
             self.total_tracker['CPU'][self._manufacturer][self._model] = 1
             self.inventory_tracker['CPU'][self._manufacturer][self._model] = 1
+            self.allocated_tracker['CPU'][self._manufacturer][self._model] = 0
+            self.retired_tracker['CPU'][self._manufacturer][self._model] = 0
 
-    def __del__(self):
-        print(dir(self))
-        print('bizimdir')
+    def __str__(self):
+        return f'{self._manufacturer} {self._model}'
 
-    def deleter(obj):
-        del(obj)
-
-    @Resource.model.setter
-    def model(self, new_name):
-        if new_name in self.cpu_dict[self.manufacturer]:
-            self._model = new_name
-            return
-        raise KeyError('Entered Model is not Allowed')
+    def __repr__(self):
+        return f"{self._manufacturer} {self._model}\n" \
+               f"Total: {self.total_tracker['CPU'][self._manufacturer][self._model]}\n" \
+               f"Inventory: {self.inventory_tracker['CPU'][self._manufacturer][self._model]}\n" \
+               f"Allocated: {self.allocated_tracker['CPU'][self._manufacturer][self._model]}\n" \
+               f"Retired: {self.retired_tracker['CPU'][self._manufacturer][self._model]}"
 
     @Resource.manufacturer.setter
     def manufacturer(self, manu):
@@ -55,9 +53,13 @@ class CPU(Resource):
             return
         raise KeyError('Entered Manufacturer is not Allowed')
 
-    def info(self):
+    @Resource.model.setter
+    def model(self, new_name):
+        if new_name in self.cpu_dict[self.manufacturer]:
+            self._model = new_name
+            return
+        raise KeyError('Entered Model is not Allowed')
 
-        pass
 
 c1 = CPU('AMD','Ryzen 9 5950X')
 # c1.to_inventory()
@@ -70,14 +72,6 @@ c1.allocate()
 c1.allocate()
 print('inv ', Resource.inventory_tracker)
 print('all ' , Resource.allocated_tracker)
-c1.to_inventory()
-c1.to_inventory()
-print('inv ', Resource.inventory_tracker)
-print('all ', Resource.allocated_tracker)
-c1.retire()
-c1.retire()
-print('inv ', Resource.inventory_tracker)
-print('all ', Resource.allocated_tracker)
-print('ret ', Resource.retired_tracker)
-print(c1)
 
+print(repr(c1))
+print(c1)
