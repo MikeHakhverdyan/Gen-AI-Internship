@@ -58,10 +58,3 @@ class SSD(Storage):
             self._interface = name
             return
         raise KeyError('Entered Interface is not Allowed')
-
-ssd1 = SSD('Seagate', 'BarraCuda 510', 512, "PCIe NVMe 3.0 x4")
-print(ssd1)
-print(repr(ssd1))
-ssd1.allocate()
-print('inv ', Resource.inventory_tracker)
-print('all ', Resource.allocated_tracker)

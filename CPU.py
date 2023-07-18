@@ -59,19 +59,3 @@ class CPU(Resource):
             self._model = new_name
             return
         raise KeyError('Entered Model is not Allowed')
-
-
-c1 = CPU('AMD','Ryzen 9 5950X')
-# c1.to_inventory()
-# c2 = CPU('AMD','Ryzen 9 5950X')
-# c3 = CPU('AMD','Ryzen 9 5950X')
-
-print(c1.__dict__)
-print(Resource.total_tracker)
-c1.allocate()
-c1.allocate()
-print('inv ', Resource.inventory_tracker)
-print('all ' , Resource.allocated_tracker)
-
-print(repr(c1))
-print(c1)

@@ -52,16 +52,3 @@ class HDD(Storage):
             self._rom = speed
             return
         raise KeyError('Entered RPM is not Allowed')
-
-
-hdd1 = HDD("Samsung", 'Spinpoint', 256, 7200)
-print(hdd1)
-print(repr(hdd1))
-hdd1.allocate()
-hdd1.to_inventory()
-hdd1.retire()
-hdd1.to_inventory()
-
-print('inv ', Resource.inventory_tracker)
-print('all ', Resource.allocated_tracker)
-print('ret ', Resource.retired_tracker)
